@@ -5,7 +5,7 @@ console.log(movies);
 // _Bonus_: It seems some of the directors had directed multiple movies so they will pop up multiple times in the array of directors.
 // How could you "clean" a bit this array and make it unified (without duplicates)?
 function getAllDirectors(moviesArray) {
-  let directors = moviesArray.map( el => el.director);
+  let directors = moviesArray.map((el) => el.director);
   return directors;
 }
 //getAllDirectors(movies);
@@ -13,7 +13,7 @@ function getAllDirectors(moviesArray) {
 // Iteration 2: Steven Spielberg. The best? - How many drama movies did STEVEN SPIELBERG direct?
 function howManyMovies(moviesArray) {
   let spielbergDrama = moviesArray.filter((el) => {
-    if (el.director === 'Steven Spielberg' && el.genre.includes('Drama')){
+    if (el.director === 'Steven Spielberg' && el.genre.includes('Drama')) {
       return true;
     }
   });
@@ -22,25 +22,39 @@ function howManyMovies(moviesArray) {
 
 //howManyMovies(movies);
 
-
 // Iteration 3: All scores average - Get the average of all scores with 2 decimals
 function scoresAverage(moviesArray) {
-  let scoreArray = [];
-
-  moviesArray.forEach((el) => scoreArray.push(el.score));
-
-  let scoreSum = scoreArray.reduce((a, b) => a + b);
+  let initialValue = 0;
+  let scoreSum = moviesArray.reduce((a, b) => a + b.score, initialValue);
   let average = (scoreSum / moviesArray.length).toFixed(2);
   return average;
 }
 
-scoresAverage(movies);
+//scoresAverage(movies);
 
 // Iteration 4: Drama movies - Get the average of Drama Movies
-function dramaMoviesScore(moviesArray) {}
+function dramaMoviesScore(moviesArray) {
+  let initialValue = 0;
+
+  let dramaMovies = moviesArray.filter((el) => {
+    if (el.genre.includes('Drama')) {
+      return true;
+    }
+  });
+
+  let dramaScoreSum = dramaMovies.reduce((a, b) => a + b.score, initialValue);
+  let dramaAverage = (dramaScoreSum / dramaMovies.length).toFixed(2);
+  return dramaAverage;
+}
+//dramaMoviesScore(movies);
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) {}
+function orderByYear(moviesArray) {
+  let moviesByYear = moviesArray.sort((a, b) => a.year - b.year);
+  return moviesByYear;
+}
+
+//orderByYear(movies);
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
 function orderAlphabetically(moviesArray) {}
@@ -50,8 +64,6 @@ function turnHoursToMinutes(moviesArray) {}
 
 // BONUS - Iteration 8: Best yearly score average - Best yearly score average
 function bestYearAvg(moviesArray) {}
-
-
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
@@ -64,6 +76,6 @@ if (typeof module !== 'undefined') {
     orderByYear,
     orderAlphabetically,
     turnHoursToMinutes,
-    bestYearAvg,
+    bestYearAvg
   };
 }
