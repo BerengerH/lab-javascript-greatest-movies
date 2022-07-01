@@ -6,7 +6,8 @@ console.log(movies);
 // How could you "clean" a bit this array and make it unified (without duplicates)?
 function getAllDirectors(moviesArray) {
   let directors = moviesArray.map((el) => el.director);
-  return directors;
+  let directorsList = [...new Set(directors)];
+  return directorsList;
 }
 //getAllDirectors(movies);
 
@@ -50,14 +51,27 @@ function dramaMoviesScore(moviesArray) {
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
 function orderByYear(moviesArray) {
-  let moviesByYear = moviesArray.sort((a, b) => a.year - b.year);
+  let moviesByTitle = moviesArray.sort((a, b) => a.title.localeCompare(b.title));
+  let moviesByYear = moviesByTitle.sort((a, b) => a.year - b.year);
   return moviesByYear;
 }
 
 //orderByYear(movies);
 
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(moviesArray) {
+  let titleArray = moviesArray.map(a => a.title);
+  titleArray = titleArray.sort((a, b) => a.localeCompare(b));
+
+    if (titleArray.length > 20){
+      return titleArray.slice(0, 20);
+    }
+    else{
+      return titleArray;
+    }
+}
+
+//orderAlphabetically(movies);
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {}
